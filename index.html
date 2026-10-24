@@ -32,13 +32,14 @@
             overflow-x: hidden;
             position: relative;
             
+            /* ОСТАВЛЕН ТОЛЬКО ОДИН ФОН */
             background-image: url('bg1.png');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            transition: background-image 0.5s ease-in-out;
         }
 
+        /* Затемнение фона, чтобы текст читался */
         body::before {
             content: '';
             position: fixed;
@@ -402,56 +403,11 @@
             backdrop-filter: blur(10px);
         }
 
-        /* ПАНЕЛЬ ПЕРЕКЛЮЧЕНИЯ ФОНА */
-        .bg-switcher {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: rgba(10, 20, 40, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            padding: 15px 20px;
-            border-radius: 20px;
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            z-index: 1000;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .bg-switcher span {
-            color: var(--text-main);
-            font-size: 0.9rem;
-            font-weight: 600;
-            margin-right: 5px;
-        }
-
-        .bg-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            border: 2px solid transparent;
-            background-size: cover;
-            background-position: center;
-            cursor: pointer;
-            transition: all 0.3s;
-            opacity: 0.6;
-        }
-
-        .bg-btn:hover, .bg-btn.active {
-            opacity: 1;
-            border-color: var(--accent);
-            transform: scale(1.1);
-            box-shadow: 0 0 15px var(--accent-glow);
-        }
-
         @media (max-width: 768px) {
             h1 { font-size: 2.5rem; }
             h2 { font-size: 2rem; }
             nav { gap: 20px; }
             .logo-container { width: 160px; height: 160px; }
-            .bg-switcher { bottom: 15px; right: 15px; padding: 10px 15px; gap: 10px; }
-            .bg-btn { width: 40px; height: 40px; }
             .mechanic-card { padding: 25px 20px; }
         }
     </style>
@@ -661,12 +617,6 @@
         <p>&copy; 2026 Everwild. Все права защищены.</p>
     </footer>
 
-    <div class="bg-switcher">
-        <span>Выберите фон:</span>
-        <div class="bg-btn active" style="background-image: url('bg1.png');" onclick="changeBg('bg1.png', this)" title="Вариант 1"></div>
-        <div class="bg-btn" style="background-image: url('bg2.png');" onclick="changeBg('bg2.png', this)" title="Вариант 2"></div>
-    </div>
-
     <script>
         document.querySelectorAll('.category-header').forEach(header => {
             header.addEventListener('click', () => {
@@ -689,23 +639,6 @@
                 }
             });
         });
-
-        document.addEventListener("DOMContentLoaded", () => {
-            const imagesToPreload = ['bg1.png', 'bg2.png']; 
-            imagesToPreload.forEach(img => {
-                const image = new Image();
-                image.src = img;
-            });
-            document.body.style.backgroundImage = "url('bg1.png')";
-        });
-
-        function changeBg(imageName, btnElement) {
-            document.body.style.backgroundImage = `url('${imageName}')`;
-            document.querySelectorAll('.bg-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            btnElement.classList.add('active');
-        }
     </script>
 </body>
 </html>
