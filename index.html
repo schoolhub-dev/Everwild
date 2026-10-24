@@ -140,13 +140,16 @@
             z-index: 10;
         }
 
+        /* Кнопка "Начать играть" - теперь это ссылка */
         .btn-play {
+            display: inline-block;
             padding: 16px 45px;
             font-size: 1rem;
             font-weight: 800;
             font-family: 'Space Grotesk', sans-serif;
             letter-spacing: 2px;
             text-transform: uppercase;
+            text-decoration: none;
             color: #02040a;
             background: var(--accent);
             border: none;
@@ -467,7 +470,8 @@
         </div>
         <h1>EH Server</h1>
         <p class="subtitle">Minecraft Survival</p>
-        <button class="btn-play">Начать играть</button>
+        <!-- ССЫЛКА НА ДИСКОРД -->
+        <a href="https://discord.gg/YfrzANNQAY" target="_blank" class="btn-play">Начать играть</a>
     </header>
 
     <section id="rules">
@@ -595,7 +599,6 @@
         </div>
     </section>
 
-    <!-- БЛОК МЕХАНИК -->
     <section id="mechanics">
         <h2>Механики сервера</h2>
         <div class="mechanics-grid">
@@ -678,7 +681,9 @@
         <div class="bg-btn" style="background-image: url('bg2.png');" onclick="changeBg('bg2.png', this)" title="Вариант 2"></div>
     </div>
 
+    <!-- СКРИПТЫ (ИСПРАВЛЕНЫ) -->
     <script>
+        // Логика для аккордеонов (ОТКРЫТИЕ ПРАВИЛ)
         document.querySelectorAll('.category-header').forEach(header => {
             header.addEventListener('click', () => {
                 const category = header.parentElement;
@@ -701,7 +706,24 @@
             });
         });
 
+        // ПРИНУДИТЕЛЬНАЯ ЗАГРУЗКА ФОНОВ
         document.addEventListener("DOMContentLoaded", () => {
             const imagesToPreload = ['bg1.png', 'bg2.png']; 
             imagesToPreload.forEach(img => {
-                const image = new Image
+                const image = new Image();
+                image.src = img;
+            });
+            document.body.style.backgroundImage = "url('bg1.png')";
+        });
+
+        // СМЕНА ФОНА
+        function changeBg(imageName, btnElement) {
+            document.body.style.backgroundImage = `url('${imageName}')`;
+            document.querySelectorAll('.bg-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            btnElement.classList.add('active');
+        }
+    </script>
+</body>
+</html>
