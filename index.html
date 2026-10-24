@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EH - Minecraft Server</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-deep: #02040a; 
+            --bg-card: rgba(8, 15, 30, 0.6); 
+            --text-main: #e2e8f0;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8; 
+            --accent-glow: rgba(56, 189, 248, 0.4);
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+            position: relative;
+            
+            background-image: url('bg1.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            transition: background-image 0.5s ease-in-out;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(2, 4, 10, 0.65); 
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Навигация */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(2, 4, 10, 0.5);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 20px;
+            border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+            z-index: 100;
+        }
+
+        nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--accent);
+            text-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        /* Главный экран */
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+        }
+
+        .logo-container {
+            width: 220px;
+            height: 220px;
+            border-radius: 30px;
+            background: var(--bg-deep);
+            box-shadow: 0 0 60px rgba(56, 189, 248, 0.2), inset 0 0 20px rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+            margin-bottom: 40px;
+            border: 2px solid rgba(56, 189, 248, 0.3);
+            position: relative;
+            transition: all 0.4s ease;
+            z-index: 10;
+        }
+
+        .logo-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 80px rgba(56, 189, 248, 0.4), inset 0 0 20px rgba(0, 0, 0, 0.8);
+            border-color: rgba(56, 189, 248, 0.8);
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            background: linear-gradient(180deg, #ffffff 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+            text-shadow: 0 0 50px rgba(56, 189, 248, 0.3);
+            z-index: 10;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            letter-spacing: 3px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            z-index: 10;
+        }
+
+        .btn-play {
+            padding: 16px 45px;
+            font-size: 1rem;
+            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #02040a;
+            background: var(--accent);
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px var(--accent-glow);
+            z-index: 10;
+        }
+
+        .btn-play:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px var(--accent);
+            background: #7dd3fc;
+        }
+
+        /* Секции */
+        section {
+            padding: 100px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 60px;
+            letter-spacing: 2px;
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            margin: 15px auto 0;
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--accent);
+        }
+
+        .alert-box {
+            background: rgba(10, 25, 45, 0.7);
+            border-left: 4px solid var(--accent);
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 50px;
+            font-size: 1rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .alert-box strong {
+            color: var(--accent);
+            font-weight: 800;
+        }
+
+        /* Аккордеон правил */
+        .rule-category {
+            background: var(--bg-card);
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            border-radius: 16px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .rule-category:hover {
+            border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.6);
+        }
+
+        .category-header {
+            padding: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            user-select: none;
+            transition: color 0.3s;
+        }
+
+        .rule-category.active .category-header {
+            color: var(--accent);
+        }
+
+        .category-header .icon {
+            color: var(--text-muted);
+            transition: transform 0.4s;
+            font-size: 1.5rem;
+            font-weight: 300;
+            line-height: 1;
+        }
+
+        .rule-category.active .icon {
+            transform: rotate(45deg);
+            color: var(--accent);
+        }
+
+        .category-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
+            padding: 0 25px;
+        }
+
+        .rule-category.active .category-content {
+            padding-bottom: 25px;
+        }
+
+        .rule-item {
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            border-left: 2px solid rgba(56, 189, 248, 0.2);
+            padding-left: 15px;
+        }
+
+        .rule-item strong {
+            color: var(--text-main);
+        }
+
+        /* Бейджи наказаний */
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-left: 5px;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-ban { background: rgba(239, 68, 68, 0.15); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.3); }
+        .badge-warn { background: rgba(245, 158, 11, 0.15); color: var(--warning); border: 1px solid rgba(245, 158, 11, 0.3); }
+        .badge-mute { background: rgba(59, 130, 246, 0.15); color: var(--info); border: 1px solid rgba(59, 130, 246, 0.3); }
+
+        /* МЕХАНИКИ */
+        .mechanics-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .mechanic-card {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid rgba(56, 189, 248, 0.1);
+            transition: all 0.3s;
+            backdrop-filter: blur(10px);
+            text-align: left;
+        }
+
+        .mechanic-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .mechanic-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--accent);
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            text-align: center;
+        }
+
+        .mechanic-card p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .mechanic-steps {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .mechanic-steps ol {
+            margin-left: 20px;
+            color: var(--text-main);
+        }
+
+        .mechanic-steps li {
+            margin-bottom: 10px;
+        }
+        
+        .mechanic-steps code {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--accent);
+            font-family: monospace;
+            font-weight: bold;
+        }
+
+        .mod-tag {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.15);
+            color: var(--accent);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .btn-download {
+            display: block;
+            width: fit-content;
+            margin: 0 auto;
+            padding: 12px 30px;
+            background: transparent;
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .btn-download:hover {
+            background: var(--accent);
+            color: #02040a;
+            box-shadow: 0 0 20px var(--accent-glow);
+        }
+
+        /* Подвал */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid rgba(56, 189, 248, 0.1);
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 10;
+            background: rgba(2, 4, 10, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        /* ПАНЕЛЬ ПЕРЕКЛЮЧЕНИЯ ФОНА */
+        .bg-switcher {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(10, 20, 40, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            padding: 15px 20px;
+            border-radius: 20px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .bg-switcher span {
+            color: var(--text-main);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-right: 5px;
+        }
+
+        .bg-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            border: 2px solid transparent;
+            background-size: cover;
+            background-position: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            opacity: 0.6;
+        }
+
+        .bg-btn:hover, .bg-btn.active {
+            opacity: 1;
+            border-color: var(--accent);
+            transform: scale(1.1);
+            box-shadow: 0 0 15px var(--accent-glow);
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            nav { gap: 20px; }
+            .logo-container { width: 160px; height: 160px; }
+            .bg-switcher { bottom: 15px; right: 15px; padding: 10px 15px; gap: 10px; }
+            .bg-btn { width: 40px; height: 40px; }
+            .mechanic-card { padding: 25px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#home">Главная</a>
+        <a href="#rules">Правила</a>
+        <a href="#mechanics">Механики</a>
+    </nav>
+
+    <header id="home">
+        <div class="logo-container">
+            <img src="logo.png" alt="EH Logo" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\'font-family:Space Grotesk; color:#38bdf8; font-size:4rem; font-weight:bold;\'>EH</span>';">
+        </div>
+        <h1>EH Server</h1>
+        <p class="subtitle">Minecraft Survival</p>
+        <button class="btn-play">Начать играть</button>
+    </header>
+
+    <section id="rules">
+        <h2>Правила сервера</h2>
+        
+        <div class="alert-box">
+            <strong>Важно:</strong> Все пункты правил 3, 4, 5 и 6 распространяются на Discord-сервер и Minecraft-сервер.<br><br>
+            Варн или бан можно снять на усмотрение администрации. Для этого пишите в личные сообщения Администрации.
+        </div>
+
+        <div id="accordion-container">
+            <!-- Категория 1 -->
+            <div class="rule-category">
+                <div class="category-header">
+                    <span>1. Гриф и Вандализм</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="category-content">
+                    <div class="rule-item">1.1. Запрещено уничтожать, ломать или изменять чужие постройки, убийства мобов без разрешения (гриферство). <span class="badge badge-warn">Варн 1-2/3</span> <span class="badge badge-ban">Бан</span></div>
+                    <div class="rule-item">1.2. Убийства без причины — запрещены. Если убил случайно или по глупости — верни ресурсы. (Все сражения должны быть согласованы между обеих сторон, либо убийства разрешены на специальных ивентах). <span class="badge badge-warn">Варн 1-2/3</span> <span class="badge badge-ban">Бан</span></div>
+                    <div class="rule-item">1.3. Запрещены акты вандализма (не только на территориях игроков, то есть строительство лавакастов, беспричинный взрыв тнт, строительство писюнов). На своей территории игрок в праве делать все что угодно. <span class="badge badge-warn">Варн 1-2/3</span> <span class="badge badge-ban">Бан</span></div>
+                    <div class="rule-item">1.4. Запрещено намеренное строительство лаг-машин, построек которые сильно нагружают сервер, скрытых ловушек на местности в которой непонятно чужая ли это территория. <span class="badge badge-warn">Варн 2/3</span> <span class="badge badge-ban">Бан</span></div>
+                </div>
+            </div>
+
+            <!-- Категория 2 -->
+            <div class="rule-category">
+                <div class="category-header">
+                    <span>2. Читы и Модификации</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="category-content">
+                    <div class="rule-item">2.1. Запрещено использования модификация дающих преимущество (читы, ресурспаки как иксрей, фрикам). ВАЖНО: Карты, шейдеры НЕ СЧИТАЮТСЯ! <span class="badge badge-warn">Варн 2/3</span> <span class="badge badge-ban">Бан</span></div>
+                    <div class="rule-item">2.2. Запрещено распространение чит-модификаций. <span class="badge badge-ban">Бан</span></div>
+                    <div class="rule-item">2.3. Администрация имеет право вызвать вас на проверку в дискорд в любой момент нахождения вас на сервере.</div>
+                    <div class="rule-item">2.4. В случае отказа на проверку читов/выход из игры вам выдаётся бан.</div>
+                    <div class="rule-item">2.5. Если при проверке администрация не нашла чит-модификаций, но их использование четко понятно и видно, администрация может также наказать вас.</div>
+                </div>
+            </div>
+
+            <!-- Категория 3 -->
+            <div class="rule-category">
+                <div class="category-header">
+                    <span>3. Оскорбления и Дискриминация</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="category-content">
+                    <div class="rule-item">3.1. Запрещены оскорбления участников сервера, а также провокации. <span class="badge badge-mute">Мут 15мин - 2 часов</span></div>
+                    <div class="rule-item">3.2. Запрещено разжигание ненависти по расовому, этническому, религиозному признаку. <span class="badge badge-mute">Мут 1 час</span> <span class="badge badge-warn">Варн 1/3</span></div>
+                    <div class="rule-item">3.3. Запрещено разжигание межнациональной розни, а также бурные обсуждения политики. <span class="badge badge-mute">Мут 1 час</span> <span class="badge badge-warn">Варн 1/3</span></div>
+                    <div class="rule-item">3.4. Запрещено "байтить"/"рейджбайтить" игроков. <span class="badge badge-mute">Мут 30мин-2 часов</span> <span class="badge badge-warn">Варн 1/3</span></div>
+                </div>
+            </div>
+
+            <!-- Категория 4 -->
+            <div class="rule-category">
+                <div class="category-header">
+                    <span>4. Доксинг и Личная Информация</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="category-content">
+                    <div class="rule-item">4.1. Запрещено разглашение личной информации участников сервера и связанных с ними лиц без их согласия (Вк, Тг и номер телефона к этому тоже относится). <span class="badge badge-ban">Бан</span></div>
+                </div>
+            </div>
+
+            <!-- Категория 5 -->
+            <div class="rule-category">
+                <div class="category-header">
+                    <span>5. Участники сервера</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="category-content">
+                    <div class="rule-item">5.1. Запрещены NSFW Аватарки, ники с оскорблениями. <span class="badge badge-warn">Варн 1-2/3</span></div>
+                    <div class="rule-item">5.2. Запрещено использовать твинки (вторые аккаунты) чтобы обойти блокировку, мут, варн и другие наказания. <span class="badge badge-ban">Бан</span></div>
+                </div>
+            </div>
+
+            <!-- Категория 6 -->
+            <div class="rule-category">
+                <div class="category-header">
+                    <span>6. Чаты сервера</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="category-content">
+                    <div class="rule-item">6.1. Запрещено спамить, флудить в любые каналы (в том числе и голосовые). <span class="badge badge-mute">Мут 10мин - 2 часов</span></div>
+                    <div class="rule-item">6.2. Запрещены 18+ медиа, эротические медиа. <span class="badge badge-mute">Мут 1 час</span> <span class="badge badge-warn">Варн 1/3</span></div>
+                </div>
+            </div>
+
+            <!-- Категория 7 -->
+            <div class="rule-category">
+                <div class="category-header">
+                    <span>7. Администрация сервера</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="category-content">
+                    <div class="rule-item">7.1. Администрация имеет право судить и выдавать наказание на собственное усмотрение.</div>
+                    <div class="rule-item">7.2. Оскорбления администрации будут рассматриваться более жестче, из-за факта провокации.</div>
+                </div>
+            </div>
+
+            <!-- Категория 8 -->
+            <div class="rule-category">
+                <div class="category-header">
+                    <span>8. Наказания и их степень</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="category-content">
+                    <div class="rule-item">8.1. Виды наказаний: мут, варн, бан.</div>
+                    <div class="rule-item">8.2. Снятие наказаний (варна или бана) происходит на усмотрение Администрации. Для обжалования пишите в личные сообщения.</div>
+                </div>
+            </div>
+
+            <!-- Категория 9 -->
+            <div class="rule-category">
+                <div class="category-header">
+                    <span>9. Спавн</span>
+                    <span class="icon">+</span>
+                </div>
+                <div class="category-content">
+                    <div class="rule-item">9.1. Запрещено КАК-ЛИБО разрушать спавн. (Лучше отойдите на 150+ блоков от спавна, а там уже развивайтесь. Постройки/базы и т.п. — 500+ блоков.) <span class="badge badge-ban">Бан</span></div>
+                    <div class="rule-item">9.2. Если вы хотите как-либо изменить спавн — согласуйте это с основателями. (Магазины, статуи — считаются.)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- БЛОК МЕХАНИК -->
+    <section id="mechanics">
+        <h2>Механики сервера</h2>
+        <div class="mechanics-grid">
+            
+            <!-- Карточка 1: Emotecraft -->
+            <div class="mechanic-card">
+                <h3>Emotecraft</h3>
+                <p>На нашем сервере присутствует плагин на эмоции Emotecraft! С помощью этого плагина вы сможете танцевать, сидеть, лежать и многое другое!</p>
+                
+                <div class="mechanic-steps">
+                    <strong style="color: #fff; display: block; margin-bottom: 10px;">Как установить эмоции:</strong>
+                    <ol>
+                        <li>Скачайте этот мод и перезапустите Minecraft.</li>
+                        <li>У вас появится папка <code>emotes</code>.</li>
+                        <li>Положите в эту папку все эмоции, которые захотите скачать с нашего сайта.</li>
+                    </ol>
+                </div>
+                
+                <a href="https://emotes.redlance.org/emotes" target="_blank" class="btn-download">Скачать эмоции</a>
+            </div>
+
+            <!-- Карточка 2: ViewDistanceTweaks -->
+            <div class="mechanic-card">
+                <h3>ViewDistanceTweaks</h3>
+                <p>На нашем сервере есть плагин для настройки дистанции, на которую вы можете видеть!</p>
+                
+                <div class="mechanic-steps" style="border-left-color: var(--info);">
+                    <p style="margin-bottom: 10px;">Обычно на сервере стоит прорисовка <strong>14 чанков</strong> и симуляция <strong>4 чанка</strong>. <span style="color: var(--danger); font-weight: bold; font-size: 0.9em;">(СИМУЛЯЦИЯ 4 ЧАНКА ТК ОНА НАГРУЖАЕТ СЕРВЕР НА МНОГО БОЛЬШЕ ЧЕМ ПРОГРУЗКА)</span></p>
+                    <p style="margin-bottom: 10px;">Но когда на сервере остается от 5 до 9 игроков, то прорисовка уходит на <strong>16 чанков</strong>, и также остается 4 чанка симуляции.</p>
+                    <p style="margin-bottom: 0;">Да, мы понимаем, что для многих игроков это довольно-таки маленькая прорисовка, но сервер способен выдержать большое количество игроков только с такой прорисовкой. <strong>НО</strong> не волнуйтесь и не спешите искать новый сервер, так как команда администрации активно ищет способ, как можно поставить прорисовку до <strong>32 ЧАНКОВ</strong>!</p>
+                </div>
+
+                <p style="text-align: center; margin-bottom: 10px;">А сейчас, для тех, кто хочет большую прорисовку, советуем вам такие моды как:</p>
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <span class="mod-tag">Bobby</span> и <span class="mod-tag">Nvidium</span> <span style="font-size: 0.85em; color: var(--text-muted);">(Nvidium для тех, у кого видеокарта от Nvidia)</span>
+                </div>
+            </div>
+
+            <!-- Карточка 3: Чат -->
+            <div class="mechanic-card">
+                <h3>Оформленный чат</h3>
+                <p>На сервере присутствует плагин на оформленный чат! Теперь все игроки не будут видеть, как ты и твои друзья общаетесь, и тем самым не будут засорять чат!</p>
+                
+                <div class="mechanic-steps" style="border-left-color: var(--warning);">
+                    <p style="margin-bottom: 10px;">Написав любое сообщение, его радиус будет распространён на <strong>20 блоков</strong>. То есть никто <strong>НЕ УВИДИТ</strong> его, если будет от вас даже на 21 блок дальше.</p>
+                    <p style="margin-bottom: 10px;">А если вы хотите написать в глобальный чат (чтобы все увидели ваши сообщения), то сначала <strong>ПОСТАВЬТЕ ! (восклицательный знак, Shift + 1)</strong>, и тогда весь сервер увидит ваше сообщение!</p>
+                    <p style="margin-bottom: 0;">Также вы можете написать лично игроку в ЛС с помощью команды <code>/msg НИК_ИГРОКА ваше сообщение</code>. Ответить на личное сообщение также можно через команду <code>/r</code> или через <code>/msg</code> по такой же схеме.</p>
+                </div>
+
+                <p style="margin-bottom: 15px;">Если вдруг у вас на сервере есть неприятели, то вы можете игнорировать их! Просто напишите команду <code>/ignore ИМЯ_ИГРОКА</code>. А если вы отпустили свою обиду и хотите обратно видеть сообщения от игрока, которого заблокировали, то просто напишите команду <code>/unignore ИМЯ_ИГРОКА</code>.</p>
+                
+                <div style="text-align: center; margin-top: 20px;">
+                    <span style="font-size: 0.9em; color: var(--text-muted);">Ознакомиться с полными командами плагина можно через <code>/chathelp</code> в чате.</span>
+                </div>
+            </div>
+
+            <!-- Карточка 4: Gsit -->
+            <div class="mechanic-card">
+                <h3>Gsit</h3>
+                <p>Плагин, который позволяет вам садиться на ступеньки, полублоки и даже на головы игроков!</p>
+                
+                <div class="mechanic-steps" style="border-left-color: var(--accent); text-align: center;">
+                    <p style="margin-bottom: 0; font-size: 1.1rem;">
+                        Достаточно нажать <strong>правой кнопкой мыши</strong> по игроку / ступеньке / полублоку.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 EH Server. Все права защищены.</p>
+    </footer>
+
+    <!-- ПАНЕЛЬ ПЕРЕКЛЮЧЕНИЯ ФОНА -->
+    <div class="bg-switcher">
+        <span>Выберите фон:</span>
+        <div class="bg-btn active" style="background-image: url('bg1.png');" onclick="changeBg('bg1.png', this)" title="Вариант 1"></div>
+        <div class="bg-btn" style="background-image: url('bg2.png');" onclick="changeBg('bg2.png', this)" title="Вариант 2"></div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.category-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const category = header.parentElement;
+                const content = header.nextElementSibling;
+                
+                document.querySelectorAll('.rule-category').forEach(cat => {
+                    if (cat !== category && cat.classList.contains('active')) {
+                        cat.classList.remove('active');
+                        cat.querySelector('.category-content').style.maxHeight = null;
+                    }
+                });
+
+                category.classList.toggle('active');
+                
+                if (category.classList.contains('active')) {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                } else {
+                    content.style.maxHeight = null;
+                }
+            });
+        });
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const imagesToPreload = ['bg1.png', 'bg2.png']; 
+            imagesToPreload.forEach(img => {
+                const image = new Image
