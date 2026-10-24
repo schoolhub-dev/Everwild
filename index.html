@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EH - Minecraft Server</title>
+    <title>Everwild - Minecraft Server</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -140,7 +140,7 @@
             z-index: 10;
         }
 
-        /* Кнопка "Начать играть" - теперь это ссылка */
+        /* Кнопка "Начать играть" */
         .btn-play {
             display: inline-block;
             padding: 16px 45px;
@@ -466,11 +466,10 @@
 
     <header id="home">
         <div class="logo-container">
-            <img src="logo.png" alt="EH Logo" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\'font-family:Space Grotesk; color:#38bdf8; font-size:4rem; font-weight:bold;\'>EH</span>';">
+            <img src="logo.png" alt="EW Logo" onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=\'font-family:Space Grotesk; color:#38bdf8; font-size:4rem; font-weight:bold;\'>EW</span>';">
         </div>
-        <h1>EH Server</h1>
+        <h1>Everwild</h1>
         <p class="subtitle">Minecraft Survival</p>
-        <!-- ССЫЛКА НА ДИСКОРД -->
         <a href="https://discord.gg/YfrzANNQAY" target="_blank" class="btn-play">Начать играть</a>
     </header>
 
@@ -603,11 +602,9 @@
         <h2>Механики сервера</h2>
         <div class="mechanics-grid">
             
-            <!-- Карточка 1: Emotecraft -->
             <div class="mechanic-card">
                 <h3>Emotecraft</h3>
                 <p>На нашем сервере присутствует плагин на эмоции Emotecraft! С помощью этого плагина вы сможете танцевать, сидеть, лежать и многое другое!</p>
-                
                 <div class="mechanic-steps">
                     <strong style="color: #fff; display: block; margin-bottom: 10px;">Как установить эмоции:</strong>
                     <ol>
@@ -616,50 +613,40 @@
                         <li>Положите в эту папку все эмоции, которые захотите скачать с нашего сайта.</li>
                     </ol>
                 </div>
-                
                 <a href="https://emotes.redlance.org/emotes" target="_blank" class="btn-download">Скачать эмоции</a>
             </div>
 
-            <!-- Карточка 2: ViewDistanceTweaks -->
             <div class="mechanic-card">
                 <h3>ViewDistanceTweaks</h3>
                 <p>На нашем сервере есть плагин для настройки дистанции, на которую вы можете видеть!</p>
-                
                 <div class="mechanic-steps" style="border-left-color: var(--info);">
                     <p style="margin-bottom: 10px;">Обычно на сервере стоит прорисовка <strong>14 чанков</strong> и симуляция <strong>4 чанка</strong>. <span style="color: var(--danger); font-weight: bold; font-size: 0.9em;">(СИМУЛЯЦИЯ 4 ЧАНКА ТК ОНА НАГРУЖАЕТ СЕРВЕР НА МНОГО БОЛЬШЕ ЧЕМ ПРОГРУЗКА)</span></p>
                     <p style="margin-bottom: 10px;">Но когда на сервере остается от 5 до 9 игроков, то прорисовка уходит на <strong>16 чанков</strong>, и также остается 4 чанка симуляции.</p>
                     <p style="margin-bottom: 0;">Да, мы понимаем, что для многих игроков это довольно-таки маленькая прорисовка, но сервер способен выдержать большое количество игроков только с такой прорисовкой. <strong>НО</strong> не волнуйтесь и не спешите искать новый сервер, так как команда администрации активно ищет способ, как можно поставить прорисовку до <strong>32 ЧАНКОВ</strong>!</p>
                 </div>
-
                 <p style="text-align: center; margin-bottom: 10px;">А сейчас, для тех, кто хочет большую прорисовку, советуем вам такие моды как:</p>
                 <div style="text-align: center; margin-bottom: 20px;">
                     <span class="mod-tag">Bobby</span> и <span class="mod-tag">Nvidium</span> <span style="font-size: 0.85em; color: var(--text-muted);">(Nvidium для тех, у кого видеокарта от Nvidia)</span>
                 </div>
             </div>
 
-            <!-- Карточка 3: Чат -->
             <div class="mechanic-card">
                 <h3>Оформленный чат</h3>
                 <p>На сервере присутствует плагин на оформленный чат! Теперь все игроки не будут видеть, как ты и твои друзья общаетесь, и тем самым не будут засорять чат!</p>
-                
                 <div class="mechanic-steps" style="border-left-color: var(--warning);">
                     <p style="margin-bottom: 10px;">Написав любое сообщение, его радиус будет распространён на <strong>20 блоков</strong>. То есть никто <strong>НЕ УВИДИТ</strong> его, если будет от вас даже на 21 блок дальше.</p>
                     <p style="margin-bottom: 10px;">А если вы хотите написать в глобальный чат (чтобы все увидели ваши сообщения), то сначала <strong>ПОСТАВЬТЕ ! (восклицательный знак, Shift + 1)</strong>, и тогда весь сервер увидит ваше сообщение!</p>
                     <p style="margin-bottom: 0;">Также вы можете написать лично игроку в ЛС с помощью команды <code>/msg НИК_ИГРОКА ваше сообщение</code>. Ответить на личное сообщение также можно через команду <code>/r</code> или через <code>/msg</code> по такой же схеме.</p>
                 </div>
-
                 <p style="margin-bottom: 15px;">Если вдруг у вас на сервере есть неприятели, то вы можете игнорировать их! Просто напишите команду <code>/ignore ИМЯ_ИГРОКА</code>. А если вы отпустили свою обиду и хотите обратно видеть сообщения от игрока, которого заблокировали, то просто напишите команду <code>/unignore ИМЯ_ИГРОКА</code>.</p>
-                
                 <div style="text-align: center; margin-top: 20px;">
                     <span style="font-size: 0.9em; color: var(--text-muted);">Ознакомиться с полными командами плагина можно через <code>/chathelp</code> в чате.</span>
                 </div>
             </div>
 
-            <!-- Карточка 4: Gsit -->
             <div class="mechanic-card">
                 <h3>Gsit</h3>
                 <p>Плагин, который позволяет вам садиться на ступеньки, полублоки и даже на головы игроков!</p>
-                
                 <div class="mechanic-steps" style="border-left-color: var(--accent); text-align: center;">
                     <p style="margin-bottom: 0; font-size: 1.1rem;">
                         Достаточно нажать <strong>правой кнопкой мыши</strong> по игроку / ступеньке / полублоку.
@@ -671,19 +658,16 @@
     </section>
 
     <footer>
-        <p>&copy; 2026 EH Server. Все права защищены.</p>
+        <p>&copy; 2026 Everwild. Все права защищены.</p>
     </footer>
 
-    <!-- ПАНЕЛЬ ПЕРЕКЛЮЧЕНИЯ ФОНА -->
     <div class="bg-switcher">
         <span>Выберите фон:</span>
         <div class="bg-btn active" style="background-image: url('bg1.png');" onclick="changeBg('bg1.png', this)" title="Вариант 1"></div>
         <div class="bg-btn" style="background-image: url('bg2.png');" onclick="changeBg('bg2.png', this)" title="Вариант 2"></div>
     </div>
 
-    <!-- СКРИПТЫ (ИСПРАВЛЕНЫ) -->
     <script>
-        // Логика для аккордеонов (ОТКРЫТИЕ ПРАВИЛ)
         document.querySelectorAll('.category-header').forEach(header => {
             header.addEventListener('click', () => {
                 const category = header.parentElement;
@@ -706,7 +690,6 @@
             });
         });
 
-        // ПРИНУДИТЕЛЬНАЯ ЗАГРУЗКА ФОНОВ
         document.addEventListener("DOMContentLoaded", () => {
             const imagesToPreload = ['bg1.png', 'bg2.png']; 
             imagesToPreload.forEach(img => {
@@ -716,7 +699,6 @@
             document.body.style.backgroundImage = "url('bg1.png')";
         });
 
-        // СМЕНА ФОНА
         function changeBg(imageName, btnElement) {
             document.body.style.backgroundImage = `url('${imageName}')`;
             document.querySelectorAll('.bg-btn').forEach(btn => {
